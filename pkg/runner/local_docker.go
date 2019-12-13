@@ -17,6 +17,7 @@ import (
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/api/types/container"
 	"github.com/docker/docker/api/types/mount"
+	"github.com/docker/docker/api/types/network"
 	"github.com/docker/docker/client"
 	"github.com/docker/docker/pkg/stdcopy"
 
@@ -291,7 +292,16 @@ func deleteContainers(cli *client.Client, log *zap.SugaredLogger, ids []string) 
 }
 
 func ensureControlNetwork(cli *client.Client, log *zap.SugaredLogger) (id string, err error) {
-	return docker.EnsureBridgeNetwork(context.Background(), log, cli, "testground-control", true)
+	return docker.EnsureBridgeNetwork(
+		context.Background(),
+		log, cli,
+		"testground-control",
+		true,
+		network.IPAMConfig{
+			Subnet:  controlSubnet,
+			Gateway: controlGateway,
+		},
+	)
 }
 
 func newDataNetwork(cli *client.Client, log *zap.SugaredLogger, env *runtime.RunEnv, name string) (id string, err error) {
@@ -305,6 +315,10 @@ func newDataNetwork(cli *client.Client, log *zap.SugaredLogger, env *runtime.Run
 			"testground.testcase": env.TestCase,
 			"testground.runid":    env.TestRun,
 			"testground.name":     name,
+		},
+		network.IPAMConfig{
+			Subnet:  dataSubnet,
+			Gateway: dataGateway,
 		},
 	)
 }

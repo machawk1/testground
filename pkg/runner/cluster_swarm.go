@@ -8,7 +8,6 @@ import (
 	"reflect"
 	"time"
 
-	"github.com/docker/docker/api/types/network"
 	"github.com/ipfs/testground/pkg/api"
 	"github.com/ipfs/testground/pkg/aws"
 	"github.com/ipfs/testground/pkg/logging"
@@ -17,6 +16,7 @@ import (
 
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/api/types/filters"
+	"github.com/docker/docker/api/types/network"
 	"github.com/docker/docker/api/types/swarm"
 	"github.com/docker/docker/client"
 	"github.com/docker/docker/pkg/stdcopy"
@@ -146,8 +146,8 @@ func (*ClusterSwarmRunner) Run(input *api.RunInput, ow io.Writer) (*api.RunOutpu
 		IPAM: &network.IPAM{
 			Driver: "default",
 			Config: []network.IPAMConfig{{
-				Subnet:  "192.168.0.0/16",
-				Gateway: "192.168.0.1",
+				Subnet:  dataSubnet,
+				Gateway: dataGateway,
 			}},
 		},
 		Labels: map[string]string{

@@ -92,6 +92,13 @@ type NetworkConfig struct {
 
 	// IPv4 and IPv6 set the IP addresses of this network device. If
 	// unspecified, the sidecar will leave them alone.
+	//
+	// The three supported A blocks are (currently):
+	// - 8.0.0.0/8   (except 8.0.0.1) -- public
+	// - 9.0.0.0/8                    -- public
+	// - 10.0.0.0/8                   -- private
+	//
+	// TODO: IPv6 is currently not supported.
 	IPv4, IPv6 *net.IPNet
 
 	// Enable enables this network device.
@@ -99,7 +106,9 @@ type NetworkConfig struct {
 
 	// Default is the default link shaping rule.
 	Default LinkShape
+
 	// Rules defines how traffic should be shaped to different subnets.
+	// TODO: This is not implemented.
 	Rules []LinkRule
 
 	// State will be signaled when the link changes are applied. Nodes can

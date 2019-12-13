@@ -5,7 +5,7 @@
     attachable: yes
     enable_ipv6: no
     ipam_config:
-      - subnet: 10.1.0.0/16
+      - subnet: 192.168.0.0/16
 
 - name: Start Redis service
   docker_swarm_service:
