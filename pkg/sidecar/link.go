@@ -183,8 +183,32 @@ func (l *NetlinkLink) Shape(shape sync.LinkShape) error {
 
 // Set the links address.
 // NOTE: This won't work in docker; use docker connect/disconnect.
-func (l *NetlinkLink) SetAddr(ip *net.IPNet) error {
-	return l.handle.AddrReplace(l.Link, &netlink.Addr{IPNet: ip})
+func (l *NetlinkLink) AddrAdd(ip *net.IPNet) error {
+	return l.handle.AddrAdd(l.Link, &netlink.Addr{IPNet: ip})
+}
+
+func (l *NetlinkLink) AddrDel(ip *net.IPNet) error {
+	return l.handle.AddrAdd(l.Link, &netlink.Addr{IPNet: ip})
+}
+
+func (l *NetlinkLink) ListV4() ([]*net.IPNet, error) {
+	return l.list(netlink.FAMILY_V4)
+}
+
+func (l *NetlinkLink) ListV6() ([]*net.IPNet, error) {
+	return l.list(netlink.FAMILY_V6)
+}
+
+func (l *NetlinkLink) list(family int) ([]*net.IPNet, error) {
+	addrs, err := l.handle.AddrList(l.Link, family)
+	if err != nil {
+		return nil, err
+	}
+	res := make([]*net.IPNet, len(addrs))
+	for i, addr := range addrs {
+		res[i] = addr.IPNet
+	}
+	return res, nil
 }
 
 // Up sets the link up.
