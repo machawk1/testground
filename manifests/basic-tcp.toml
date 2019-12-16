@@ -1,0 +1,29 @@
+name = "basic-tcp"
+source_path = "file://${TESTGROUND_SRCDIR}/plans/basic-tcp"
+
+[defaults]
+builder = "docker:go"
+runner = "local:docker"
+
+# Fetches latest go-ipfs
+[build_strategies."docker:go"]
+enabled = true
+go_version = "1.13"
+module_path = "github.com/ipfs/testground/plans/basic-tcp"
+exec_pkg = "."
+
+[run_strategies."local:docker"]
+enabled = true
+
+[run_strategies."cluster:swarm"]
+enabled = true
+
+# seq 0
+[[testcases]]
+name = "upload"
+instances = { min = 2, max = 2, default = 2 }
+
+# seq 1
+[[testcases]]
+name = "upload-with-shaping"
+instances = { min = 2, max = 2, default = 2 }
