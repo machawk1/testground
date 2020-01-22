@@ -139,8 +139,6 @@ github.com/imdario/mergo v0.3.8/go.mod h1:2EnlNZ0deacrJVfApfmtdGgDfMuh/nq6Ok1EcJ
 github.com/ipfs/go-cid v0.0.2/go.mod h1:GHWU/WuQdMPmIosc4Yn1bcCT7dSeX4lBafM7iqUPQvM=
 github.com/ipfs/go-cid v0.0.3 h1:UIAh32wymBpStoe83YCzwVQQ5Oy/H0FdxvUS6DJDzms=
 github.com/ipfs/go-cid v0.0.3/go.mod h1:GHWU/WuQdMPmIosc4Yn1bcCT7dSeX4lBafM7iqUPQvM=
-github.com/ipfs/go-ipfs-util v0.0.1 h1:Wz9bL2wB2YBJqggkA4dD7oSmqB4cAnpNbGrlHJulv50=
-github.com/ipfs/go-ipfs-util v0.0.1/go.mod h1:spsl5z8KUnrve+73pOhSVZND1SIxPW5RyBCNzQxlJBc=
 github.com/ipfs/testground v0.0.0-20200121194104-fd53f27ef027 h1:OeyYxO40liB/bGTxfFLBlRAZtTry+W0gGMzo+ApKn9w=
 github.com/ipfs/testground v0.0.0-20200121194104-fd53f27ef027/go.mod h1:gawN4GBDQfpi0HWwh25ZXK/bSxZVoMEjdlpSmjJt2t8=
 github.com/ipfs/testground/sdk/sync v0.0.0-20190921111954-a84ff142a5a3/go.mod h1:uwxihymBlRO5v2h+lIUrzgBBLhoHP6f/A44Pmp1DwhI=
