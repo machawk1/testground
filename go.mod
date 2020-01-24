@@ -37,7 +37,6 @@ require (
 	github.com/urfave/cli v1.22.1
 	github.com/vishvananda/netlink v1.0.0
 	github.com/vishvananda/netns v0.0.0-20191106174202-0a2b9b5464df
-	go.opencensus.io v0.22.2 // indirect
 	go.uber.org/zap v1.12.0
 	golang.org/x/crypto v0.0.0-20200115085410-6d4e4cb37c7d // indirect
 	golang.org/x/net v0.0.0-20191109021931-daa7c04131f5 // indirect
