@@ -30,7 +30,7 @@ func run(runenv *runtime.RunEnv) error {
 	}
 
 	runenv.Message("before sync.MustWatcherWriter")
-	watcher, writer := sync.MustWatcherWriter(runenv)
+	watcher, writer := sync.MustWatcherWriter(ctx, runenv)
 	defer watcher.Close()
 	defer writer.Close()
 
@@ -68,7 +68,7 @@ func run(runenv *runtime.RunEnv) error {
 	}
 
 	runenv.Message("before writer config")
-	_, err = writer.Write(sync.NetworkSubtree(hostname), &config)
+	_, err = writer.Write(ctx, sync.NetworkSubtree(hostname), &config)
 	if err != nil {
 		return err
 	}
@@ -92,7 +92,7 @@ func run(runenv *runtime.RunEnv) error {
 
 	// Get a sequence number
 	runenv.Message("get a sequence number")
-	seq, err := writer.Write(&sync.Subtree{
+	seq, err := writer.Write(ctx, &sync.Subtree{
 		GroupKey:    "ip-allocation",
 		PayloadType: reflect.TypeOf(""),
 		KeyFunc: func(val interface{}) string {
@@ -129,7 +129,7 @@ func run(runenv *runtime.RunEnv) error {
 	}
 
 	logging.S().Debug("before writing changed ip config to redis")
-	_, err = writer.Write(sync.NetworkSubtree(hostname), &config)
+	_, err = writer.Write(ctx, sync.NetworkSubtree(hostname), &config)
 	if err != nil {
 		return err
 	}
@@ -222,7 +222,7 @@ func run(runenv *runtime.RunEnv) error {
 		state := sync.State("ping-pong-" + test)
 
 		// Don't reconfigure the network until we're done with the first test.
-		writer.SignalEntry(state)
+		writer.SignalEntry(ctx, state)
 		err = <-watcher.Barrier(ctx, state, int64(runenv.TestInstanceCount))
 		if err != nil {
 			return err
@@ -238,7 +238,7 @@ func run(runenv *runtime.RunEnv) error {
 	config.State = "latency-reduced"
 
 	logging.S().Debug("writing new config with latency reduced")
-	_, err = writer.Write(sync.NetworkSubtree(hostname), &config)
+	_, err = writer.Write(ctx, sync.NetworkSubtree(hostname), &config)
 	if err != nil {
 		return err
 	}

@@ -43,9 +43,9 @@ type Logs interface {
 }
 
 // NewInstance constructs a new test instance handle.
-func NewInstance(runenv *runtime.RunEnv, hostname string, network Network, logs Logs) (*Instance, error) {
+func NewInstance(ctx context.Context, runenv *runtime.RunEnv, hostname string, network Network, logs Logs) (*Instance, error) {
 	// Get a redis reader/writer.
-	watcher, writer, err := sync.WatcherWriter(runenv)
+	watcher, writer, err := sync.WatcherWriter(ctx, runenv)
 	if err != nil {
 		return nil, fmt.Errorf("during sync.WatcherWriter: %w", err)
 	}
